@@ -7,15 +7,15 @@ import { useAuthStore } from "../store/auth";
 const authStore = useAuthStore();
 const router = useRouter()
 
-const email = ref('rigo@test.com')
-const password = ref('123123')
+const email = ref('mac@mail.com')
+const password = ref('Password1')
 
 const handlerSubmit = async() => {
     try {
         await authStore.login(email.value, password.value)
-        router.push('/')
+        //router.push('/')
     } catch (error) {
-        console.log("error", error);
+        console.log(error.message);
     }
     
 }
@@ -23,6 +23,7 @@ const handlerSubmit = async() => {
 </script>
 
 <template>
+  {{ authStore }}
   <section class="bg-gray-50 dark:bg-gray-900">
     <div
       class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"

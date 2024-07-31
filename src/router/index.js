@@ -6,11 +6,12 @@ import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import BookListView from "../views/BookListView.vue";
 import CreateBookView from "../views/CreateBookView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
 
 const routes = [
     {
         path: '/',
-        name: 'list',
+        name: 'home',
         component: BookListView,
         meta: {
             requireAuth: false
@@ -39,6 +40,11 @@ const routes = [
         meta: {
             requireAuth: true
         }
+    },
+    {
+        path: '/:catchAll(.*)*',
+        name: 'notFound',
+        component: NotFoundView
     }
 ]
 

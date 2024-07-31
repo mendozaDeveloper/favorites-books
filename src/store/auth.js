@@ -12,15 +12,14 @@ export const useAuthStore = defineStore('auth', () => {
                 password: password
             })
             console.log(res.data);
-            token.value = res.data.token
+            console.log(res.data.data.accessToken);
+            token.value = res.data.data.accessToken
         } catch (error) {
             if(error.response){
                 throw error.response.data
             }
         }
     }
-
-
     return {
         token,
         login

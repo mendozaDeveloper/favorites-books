@@ -6,10 +6,13 @@ import './styles.css'
 import App from './App.vue'
 import router from './router'
 import api from './plugins/axios'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 const pinia = createPinia()
-const app = createApp(App)
+pinia.use(piniaPluginPersistedstate)
 
+
+const app = createApp(App)
 app.config.globalProperties.$axios = api
 
 app.use(pinia)
