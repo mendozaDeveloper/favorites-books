@@ -1,10 +1,15 @@
 <script setup>
+import { onMounted } from 'vue';
 import { useBookStore } from '../store/book';
 
 const useBook = useBookStore()
 
-</script>
+onMounted(() => {
+    useBook.getBooks()
+})
 
+</script>
+     
 <template>
     <section class="bg-gray-50 py-8 antialiased dark:bg-gray-900 md:py-12">
         <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -14,7 +19,7 @@ const useBook = useBookStore()
                     class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
                     <div class="h-56 w-full">
                         <a href="#">
-                            <img class="mx-auto h-full" :src="book.cover" alt="" />
+                            <img class="mx-auto h-full" :src="book.cover"/>
                         </a>
                     </div>
                     <div class="pt-6">
