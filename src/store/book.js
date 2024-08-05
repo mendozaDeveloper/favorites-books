@@ -20,7 +20,6 @@ export const useBookStore = defineStore("book", () => {
           },
           data: dataForm,
         });
-        console.log(res.data);
         books.value.push(res.data.data)
       } catch (error) {
         if (error.response) {

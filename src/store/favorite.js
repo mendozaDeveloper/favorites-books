@@ -7,6 +7,7 @@ export const useFavoriteStore = defineStore('favorite', () => {
     const authStore = useAuthStore()
     const collections = ref([])
     const favorites = ref([])
+    const addFavorites = ref([])
 
     const getCollections = async() => {
         try {
@@ -42,11 +43,35 @@ export const useFavoriteStore = defineStore('favorite', () => {
         }
     }
 
+    const addBook = async (idBook, idCollection) => {
+        try {
+          const res = await api({
+            method: 'POST',
+            url: `/collections/${idCollection}/add-item`,
+            headers: {
+              Authorization: "Bearer " + authStore.token
+            },
+            data: {
+              bookId: idBook
+            }
+          })
+          addFavorites.value = res.data.status
+          console.log(addFavorites.value);
+              
+        } catch (error) {
+            if(error.response){
+              throw error.response.data
+            }
+        }
+      }
+
     return {
         collections,
         favorites,
+        addFavorites,
         getCollections,
-        getFavorites
+        getFavorites,
+        addBook
     }
 
 },
@@ -55,12 +80,12 @@ export const useFavoriteStore = defineStore('favorite', () => {
         {
             key: 'collections',
             paths: ['collections'],
-            storage: sessionStorage,
+            storage: localStorage,
         },
         {
             key: 'favorites',
             paths: ['favorites'],
-            storage: sessionStorage,
+            storage: localStorage,
         },
       ],
 })

@@ -20,9 +20,9 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="antialiased bg-gray-50 dark:bg-gray-900 flex relative">
-        <aside class="absolute w-64 h-full pt-1 pb-14 bg-white border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-            <div class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-gray-800">
+    <div class="antialiased bg-gray-50 dark:bg-gray-900 md:flex relative md:min-h-[400px]">
+        <aside class="md:absolute  md:w-64 w-full md:h-full pt-1 md:pb-14 bg-white md:border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+            <div class="overflow-y-auto pb-5 md:pt-5 px-3 h-full bg-white dark:bg-gray-800">
                 <div class="py-3">
                     <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ authStore.userAuth.username }}</span>
                     <span class="block text-sm text-gray-900 truncate dark:text-white">{{ authStore.userAuth.email }}</span>
@@ -44,11 +44,15 @@ onMounted(() => {
                 </ul>
             </div>
         </aside>
-
-        <section class="p-4 h-auto md:ml-64">
-            <template v-for="favorite in favStore.favorites" :key="favorite._id">
-                <ListFavoriteComponent :list="favorite" />
-            </template>
+        <section class="p-4 h-auto md:ml-64 w-full">
+            <div class="mb-4 grid gap-4 sm:grid-cols-1 md:mb-8 lg:grid-cols-2 xl:grid-cols-3 px-8">
+                <template v-for="favorite in favStore.favorites" :key="favorite._id" v-if="favStore.favorites.length">
+                    <ListFavoriteComponent :list="favorite" />
+                </template>
+                <div v-else class="col-span-3 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <span class="font-medium">No hay libros agregados a la collección</span>
+                </div>
+            </div>
         </section>
     </div>
 </template>
