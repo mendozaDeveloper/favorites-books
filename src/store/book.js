@@ -53,7 +53,7 @@ export const useBookStore = defineStore("book", () => {
   },
   {
     persist: {
-      storage: sessionStorage,
+      storage: localStorage,
       paths: ["books"],
     },
   }

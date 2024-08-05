@@ -8,6 +8,7 @@ export const useFavoriteStore = defineStore('favorite', () => {
     const collections = ref([])
     const favorites = ref([])
     const addFavorites = ref([])
+    const isCollectionHidden = ref(false)
 
     const getCollections = async() => {
         try {
@@ -17,7 +18,7 @@ export const useFavoriteStore = defineStore('favorite', () => {
                 headers: {
                     Authorization: "Bearer " + authStore.token
                 }
-            })            
+            })
             collections.value = res.data.data
         } catch (error) {
             if(error.response){
@@ -35,7 +36,7 @@ export const useFavoriteStore = defineStore('favorite', () => {
                     Authorization: "Bearer " + authStore.token
                 },
             })
-            favorites.value = res.data.data            
+            favorites.value = res.data.data        
         } catch (error) {
             if(error.response){
                 throw error.response.data
@@ -54,21 +55,25 @@ export const useFavoriteStore = defineStore('favorite', () => {
             data: {
               bookId: idBook
             }
+          }).then((response) => {
+            getFavorites(idCollection)
+
+            addFavorites.value = response.data.status
+            console.log(addFavorites.value);
           })
-          addFavorites.value = res.data.status
-          console.log(addFavorites.value);
               
         } catch (error) {
             if(error.response){
               throw error.response.data
             }
         }
-      }
+    }
 
     return {
         collections,
         favorites,
         addFavorites,
+        isCollectionHidden,
         getCollections,
         getFavorites,
         addBook

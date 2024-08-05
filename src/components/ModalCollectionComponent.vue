@@ -1,13 +1,10 @@
 <script setup>
-import { Modal } from 'flowbite'
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useAuthStore } from '../store/auth';
 import { useFavoriteStore } from '../store/favorite';
 
 const authStore = useAuthStore()
 const favStore = useFavoriteStore()
-
-let modal
 
 defineProps({
     idBook: {
@@ -18,21 +15,33 @@ defineProps({
 onMounted(() => {    
     authStore.userLoged()
     
-    if(!favStore.collections.length){
+   if(!favStore.collections.length){
         favStore.getCollections()
     }
 })
 
+    
+
+
 const handlerAddBook = async(idBook, idCollection) => {
     await favStore.addBook(idBook, idCollection)
     if(favStore.addFavorites === 'success'){
-        console.log('El libro se inserto con éxito');
+        alert('El libro se agregó con éxito');
+        closeModal()
     }
+    
+}
+
+
+const emit = defineEmits(['close']);
+const closeModal = () =>{
+    emit('close');
 }
 
 </script>
 
 <template>
+    
     <div 
         id="collection-modal" 
         tabindex="-1" 
@@ -42,9 +51,10 @@ const handlerAddBook = async(idBook, idCollection) => {
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Colecciones</h3>
-                    <button type="button"
+                    <button 
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-toggle="collection-modal">
+                        @click="closeModal"
+                        >
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                             viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -56,15 +66,15 @@ const handlerAddBook = async(idBook, idCollection) => {
                     <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Agregar el libro a una de las siguientes colecciones:</p>
                     {{ idBook }}
                     <ul class="my-4 space-y-3">
-                        <template v-for="colection in favStore.collections" :key="colection._id">
-                            <li>
+                        <template v-for="collection in favStore.collections" :key="collection._id">
+                            <li v-if="!favStore.isCollectionHidden">
                                 <button
                                     class="w-full p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white"
                                     data-modal-hide="collection-modal"
-                                    @click="handlerAddBook(idBook, colection._id)"
+                                    @click="handlerAddBook(idBook, collection._id)"
                                     >
                                         <span class="flex ms-3">
-                                            {{ colection.name }}
+                                            {{ collection.name }}
                                         </span>
                                 </button>
                             </li>

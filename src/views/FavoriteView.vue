@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useAuthStore } from '../store/auth';
 import { useFavoriteStore } from '../store/favorite';
 import ListFavoriteComponent from '../components/ListFavoriteComponent.vue';
@@ -12,15 +12,17 @@ onMounted(() => {
     
     authStore.userLoged()
     
-    if(!favStore.collections.length){
-        favStore.getCollections()
-    }
+    //if(!favStore.collections.length){
+        favStore.getCollections() 
+
+        
+   // }    
 })
 
 </script>
 
 <template>
-    <div class="antialiased bg-gray-50 dark:bg-gray-900 md:flex relative md:min-h-[400px]">
+    <div class="antialiased bg-gray-50 dark:bg-gray-900 md:flex relative md:min-h-[800px]">
         <aside class="md:absolute  md:w-64 w-full md:h-full pt-1 md:pb-14 bg-white md:border-r border-gray-200 dark:bg-gray-800 dark:border-gray-700">
             <div class="overflow-y-auto pb-5 md:pt-5 px-3 h-full bg-white dark:bg-gray-800">
                 <div class="py-3">
@@ -50,7 +52,7 @@ onMounted(() => {
                     <ListFavoriteComponent :list="favorite" />
                 </template>
                 <div v-else class="col-span-3 p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-                    <span class="font-medium">No hay libros agregados a la collección</span>
+                    <span class="font-medium">No hay libros agregados a esta colección</span>
                 </div>
             </div>
         </section>
