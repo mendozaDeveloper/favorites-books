@@ -18,7 +18,7 @@ export const useBookStore = defineStore("book", () => {
           headers: {
             Authorization: "Bearer " + authStore.token,
           },
-          //data: dataForm,
+          data: dataForm,
         });
         console.log(res.data);
         books.value.push(res.data.data)
@@ -29,11 +29,9 @@ export const useBookStore = defineStore("book", () => {
       } finally {
         isSubmiting.value = false;
       }
-      
     };
 
     const getBooks = async () => {
-      console.log("obteniendo los libros");
       try {
         const res = await api({
           url: "/books",

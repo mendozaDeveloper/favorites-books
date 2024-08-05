@@ -3,10 +3,10 @@ import { createWebHistory, createRouter } from "vue-router";
 import {useAuthStore} from "../store/auth";
 
 import LoginView from "../views/LoginView.vue";
-import RegisterView from "../views/RegisterView.vue";
 import BookListView from "../views/BookListView.vue";
 import CreateBookView from "../views/CreateBookView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
+import FavoriteView from "../views/FavoriteView.vue";
 
 const routes = [
     {
@@ -26,17 +26,25 @@ const routes = [
         }
     },
     {
-        path: '/register',
-        name: 'register',
-        component: RegisterView,
-        meta: {
-            requireAuth: false
-        }
-    },
-    {
         path: '/create',
         name: 'create',
         component: CreateBookView,
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/favorite',
+        name: 'favorite',
+        component: FavoriteView,
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: '/favorite/:id/items',
+        name: 'favorite-user',
+        component: FavoriteView,
         meta: {
             requireAuth: true
         }

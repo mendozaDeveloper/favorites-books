@@ -5,6 +5,7 @@ import api from "../plugins/axios";
 
 export const useAuthStore = defineStore('auth', () => {
     const token = ref(null)
+    const userAuth = ref([])
     const isAuthenticated = ref(false) 
     const router = useRouter()
 
@@ -14,8 +15,6 @@ export const useAuthStore = defineStore('auth', () => {
                 email: email,
                 password: password                
             })
-            console.log(res.data);
-            console.log(res.data.data.accessToken);
             token.value = res.data.data.accessToken
 
             isAuthenticated.value = true
@@ -25,6 +24,23 @@ export const useAuthStore = defineStore('auth', () => {
             if(error.response){
                 throw error.response.data
             }
+        }
+    }
+
+    const userLoged = async () => {      
+        try {
+            const res = await api({
+                method: 'GET',
+                url: '/auth/me',
+                headers: {
+                    Authorization: "Bearer " + token.value
+                }
+            })
+            userAuth.value = res.data.data
+        } catch (error) {
+            if(error.response){
+                throw error.response.data
+            } 
         }
     }
 
@@ -39,13 +55,26 @@ export const useAuthStore = defineStore('auth', () => {
     
     return {
         token,
+        userAuth,
         isAuthenticated,
         login,
+        userLoged,
         logout
     }
 },
 {
-    persist: true
+    persist:  [
+        {
+            key: 'auth',
+            paths: ['token'],
+            storage: sessionStorage,
+        },
+        {
+            key: 'isAuthenticated',
+            paths: ['isAuthenticated'],
+            storage: sessionStorage,
+        },
+      ],
 })
 
 
