@@ -27,7 +27,7 @@ export const useFavoriteStore = defineStore('favorite', () => {
         }
     }
 
-    const getFavorites = async (id) => {
+    const getFavorites = async (id = "667d5fd256e5f2ca4e5dff47") => {
         try {
             const res = await api({
                 method: 'GET',
@@ -59,7 +59,6 @@ export const useFavoriteStore = defineStore('favorite', () => {
             getFavorites(idCollection)
 
             addFavorites.value = response.data.status
-            console.log(addFavorites.value);
           })
               
         } catch (error) {

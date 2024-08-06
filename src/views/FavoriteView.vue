@@ -12,11 +12,13 @@ onMounted(() => {
     
     authStore.userLoged()
     
-    //if(!favStore.collections.length){
+    if(!favStore.collections.length){
         favStore.getCollections() 
-
-        
-   // }    
+    } 
+    if(!favStore.favorites.length){
+        favStore.getFavorites()
+    }
+    
 })
 
 </script>

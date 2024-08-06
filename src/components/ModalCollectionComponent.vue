@@ -64,7 +64,6 @@ const closeModal = () =>{
                 </div>
                 <div class="p-4 md:p-5">
                     <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Agregar el libro a una de las siguientes colecciones:</p>
-                    {{ idBook }}
                     <ul class="my-4 space-y-3">
                         <template v-for="collection in favStore.collections" :key="collection._id">
                             <li v-if="!favStore.isCollectionHidden">

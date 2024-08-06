@@ -54,32 +54,32 @@ const closeModal = () => {
                     </div>
                     <div class="pt-6">
                         <a href="#"
-                            class="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">{{ book.title }}</a>
+                            class="text-lg font-bold leading-tight text-gray-900 hover:underline dark:text-white">{{ book.title }}</a>
                         <ul class="mt-2 items-center gap-4">
                             <li class="flex items-center mb-2">
-                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400"><strong>Autor:</strong> {{ book.author }}</p>
+                                <p class="text-sm font-medium text-gray-700 dark:text-gray-400"><strong>Autor:</strong> {{ book.author }}</p>
                             </li>
                             <li class="flex items-center">
-                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400"><strong>Categoria:</strong> {{ book.category }}</p>
+                                <p class="text-sm font-medium text-gray-700 dark:text-gray-400"><strong>Categoria:</strong> {{ book.category }}</p>
                             </li>
                         </ul>
 
-                        <div class="mt-4 flex items-center justify-between gap-4">
-                            <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">$ {{ book.price }}</p>
+                        <div class="mt-4">
+                            <p class="text-2xl font-extrabold leading-tight text-gray-900 dark:text-white">S/. {{ book.price }}</p>
 
                             <button
                                 v-if="authStore.isAuthenticated"
                                 type="button" 
-                                class="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                class="w-full text-center mt-10 rounded-lg bg-primary-700 px-5 py-2.5 text-base font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
                                 @click="addBookFavorite(book._id)"
                                 >
-                                Agregar
+                                Agregar Libro
                             </button>
                             <router-link
                                 v-else
                                 :to="{ name: 'login' }"
-                                class="inline-flex items-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                Agregar
+                                class="w-full block text-center mt-10 rounded-lg bg-primary-700 px-5 py-2.5 text-base font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">
+                                Agregar Libro
                             </router-link>
                         </div>
                     </div>

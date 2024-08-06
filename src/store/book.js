@@ -7,6 +7,7 @@ export const useBookStore = defineStore("book", () => {
     const books = ref([]);
     const authStore = useAuthStore();
     let isSubmiting = ref(false)
+    const statusMsg = ref([])
 
     const createBook = async (dataForm) => {
       isSubmiting.value = true;
@@ -19,8 +20,14 @@ export const useBookStore = defineStore("book", () => {
             Authorization: "Bearer " + authStore.token,
           },
           data: dataForm,
-        });
-        books.value.push(res.data.data)
+        }).then((response) => {
+          books.value.push(response.data.data)
+          statusMsg.value = response.data.status
+          
+          console.log(response.data.status);
+          
+        })
+        
       } catch (error) {
         if (error.response) {
           throw error.response.data;
@@ -47,6 +54,7 @@ export const useBookStore = defineStore("book", () => {
     return {
       books,
       isSubmiting,
+      statusMsg,
       createBook,
       getBooks,
     };
