@@ -8,6 +8,7 @@ import CollectionComponent from '../components/CollectionComponent.vue';
 const authStore = useAuthStore()
 const favStore = useFavoriteStore()
 
+
 onMounted(() => {
     
     authStore.userLoged()
@@ -16,7 +17,7 @@ onMounted(() => {
         favStore.getCollections() 
     } 
     if(!favStore.favorites.length){
-        favStore.getFavorites()
+        favStore.getFavorites(favStore.collections[0]._id)
     }
     
 })
